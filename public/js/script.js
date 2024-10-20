@@ -18,7 +18,7 @@ if(navigator.geolocation){
       }
 );
 }
-const map=L.map("map").setView([0,0],16);
+const map=L.map("map").setView([0,0],13);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
@@ -31,7 +31,14 @@ socket.on("receive-location",(data)=>{
 
       }
       else{
-            markers[id]=L.markers([latitude,longitude]).addTo(map);
+            markers[id]=L.marker([latitude,longitude]).addTo(map);
       }
 
 });
+
+socket.on("user-disconnect",(id)=>{
+      if (markers[id]){
+            map.removeLayer(markers[id]);
+            delete markers[id];
+      }
+})
