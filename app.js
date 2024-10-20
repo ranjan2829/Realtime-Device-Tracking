@@ -9,6 +9,9 @@ const io=socketio(server);
 app.set("view engine","ejs");
 app.use(express.static(path.join(__dirname,"public")));
 io.on("connection",function(socket){
+      socket.on("send-location",function(data){
+            io.emit("receive-location",{id:socket.id})
+      });
       console.log("connected");
 });
 
