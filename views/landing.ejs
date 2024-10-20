@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Location Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+        }
+        .subtle-glow {
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+        .pulse {
+            animation: pulse 3s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.03); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center text-gray-200">
+    <div class="text-center p-8 bg-gray-900 bg-opacity-80 rounded-lg backdrop-blur-sm border border-gray-700 shadow-xl max-w-2xl">
+        <h1 class="text-4xl font-bold mb-6 subtle-glow text-green-400">Real-Time Location Tracker</h1>
+        <p class="text-xl mb-8 text-gray-300">Precision tracking for the modern world</p>
+        <div class="mb-8">
+            <div class="inline-block w-24 h-24 rounded-full border-2 border-green-500 pulse"></div>
+        </div>
+        <a href="/map" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-md text-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
+            Launch Tracker
+        </a>
+    </div>
+    
+    <script>
+        // Add subtle floating dots
+        const particlesCount = 30;
+        const body = document.querySelector('body');
+        
+        for (let i = 0; i < particlesCount; i++) {
+            let particle = document.createElement('div');
+            particle.className = 'absolute bg-green-500 rounded-full';
+            particle.style.width = '1px';
+            particle.style.height = '1px';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = Math.random() * 100 + 'vh';
+            particle.style.opacity = Math.random() * 0.3;
+            particle.style.animation = `float ${10 + Math.random() * 20}s linear infinite`;
+            body.appendChild(particle);
+        }
+
+        // Keyframe animation for floating particles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% { transform: translateY(0vh) translateX(0vw); }
+                100% { transform: translateY(-100vh) translateX(${Math.random() * 50 - 25}vw); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
