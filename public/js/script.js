@@ -18,10 +18,20 @@ if(navigator.geolocation){
       }
 );
 }
-const map=L.map("map").setView([0,0],10);
+const map=L.map("map").setView([0,0],16);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
-const markers=L.marker([0,0],10).addTo(map)
-    .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-    .openPopup();
+const markers={};
+socket.on("receive-location",(data)=>{
+      const {id,latitude,longitude}=data;
+      map.setView([latitude,longitude]);
+      if (markers[id]){
+            markers[id].setLatLng([latitude,longitude]);
+
+      }
+      else{
+            markers[id]=L.markers([latitude,longitude]).addTo(map);
+      }
+
+});
